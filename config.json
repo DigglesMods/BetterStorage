@@ -1,4 +1,4 @@
-{
+ï»¿{
 	"version" : "1.0",
 	"author" : "cech12, Chris1231, Zed2000",
 	
@@ -8,7 +8,7 @@
 	},
 	"description" : {
 		"en" : "More storage room; items seperately selectable; store weapons, tools and panniers",
-		"de" : "Größeres Lager; Rohstoffe einzeln auswählbar; Waffen, Werkzeuge, Holzkiepen sind einlagerbar"
+		"de" : "GrÃ¶ÃŸeres Lager; Rohstoffe einzeln auswÃ¤hlbar; Waffen, Werkzeuge, Holzkiepen sind einlagerbar"
 	},
 	
 	"links" : {
@@ -38,11 +38,11 @@
 			"default" : true,
 			"name" :  {
 				"en" : "Add store row",
-				"de" : "Regal hinzufügen"
+				"de" : "Regal hinzufÃ¼gen"
 			},
 			"description" : {
 				"en" : "Add upper store row",
-				"de" : "Oberes Lagerregal hinzufügen"
+				"de" : "Oberes Lagerregal hinzufÃ¼gen"
 			}
 		}
 	]
