@@ -45,5 +45,16 @@
 				"de" : "Oberes Lagerregal hinzufügen"
 			}
 		}
+	],
+	
+	"directories" : [
+		{
+			"type" : "data",
+			"path" : "Data_HD",
+			"condition" : {
+				"type" : "mod",
+				"id" : "DigglesHDmod"
+			}
+		}
 	]
 }
