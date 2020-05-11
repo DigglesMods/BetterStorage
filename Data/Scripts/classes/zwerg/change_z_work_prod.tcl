@@ -11,11 +11,13 @@ $start
 $replace 
 	tasklist_add this "call_method $store retrieve_item $slotidx $item; beamto_inv $item"
 $with
-	set item_inv $item
 	if {[get_objclass $item] == "Holzkiepe_"} {
-		set item_inv [new Holzkiepe]
+		tasklist_add this "call_method $store retrieve_item $slotidx $item; beamto_inv \{[new Holzkiepe]\}"
 	} elseif {[get_objclass $item] == "Grosse_Holzkiepe_"} {
-		set item_inv [new Grosse_Holzkiepe]
+		tasklist_add this "call_method $store retrieve_item $slotidx $item; beamto_inv \{[new Grosse_Holzkiepe]\}"
+	} elseif {[get_objclass $item] == "Schatzbuch"} {
+		tasklist_add this "call_method $store retrieve_item $slotidx $item; beamto_inv $item; set_roty $item 0"
+	} else {
+		tasklist_add this "call_method $store retrieve_item $slotidx $item; beamto_inv $item"
 	}
-	tasklist_add this "call_method $store retrieve_item $slotidx $item; beamto_inv $item_inv"
 $end

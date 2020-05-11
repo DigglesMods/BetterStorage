@@ -74,6 +74,7 @@ def_class _Kristall_einlagern		service material 1 {} {}
 def_class _Waffen_einlagern	service material 1 {} {}
 def_class _Werkzeuge_einlagern	service material 1 {} {}
 def_class _Traenke_einlagern	service material 1 {} {}
+def_class _Buecher_einlagern	service material 1 {} {}
 def_class _Ringe_einlagern	service material 1 {} {}
 
 $end
@@ -82,7 +83,7 @@ $start
 $after
 global store_food 
 $put
-store_mushroomcap store_mushroomtrunk store_stone store_coal store_iron store_gold store_crystal store_weapons store_tools store_potions store_rings 
+store_mushroomcap store_mushroomtrunk store_stone store_coal store_iron store_gold store_crystal store_weapons store_tools store_potions store_books store_rings 
 $end
 
 $start
@@ -164,6 +165,11 @@ $with
 		}  else {
 				set store_potions 0
 		}
+		if {[get_prod_slot_cnt this _Buecher_einlagern] != 0} {
+				set store_books 1
+		}  else {
+				set store_books 0
+		}
 		if {[get_prod_slot_cnt this _Ringe_einlagern] != 0} {
 				set store_rings 1
 		}  else {
@@ -186,6 +192,7 @@ $put
 		set store_weapons		   0	  ;// Waffen
 		set store_tools		   0	  ;// Werkzeuge
 		set store_potions		   0	  ;// Traenke
+		set store_books		   0	  ;// Buecher
 		set store_rings		   0	  ;// Ringe
 
 $end
@@ -207,6 +214,7 @@ $with
 		set_prod_slot_cnt this _Waffen_einlagern 	0
 		set_prod_slot_cnt this _Werkzeuge_einlagern 	0
 		set_prod_slot_cnt this _Traenke_einlagern 	0
+		set_prod_slot_cnt this _Buecher_einlagern 	0
 		set_prod_slot_cnt this _Ringe_einlagern 	0
 $end
 
@@ -249,6 +257,9 @@ $put
 			}
 			if {$store_potions} {
 				lappend classes Heiltrank Kleiner_Heiltrank Grosser_Heiltrank Pilzschnaps Liebestrank Unverwundbarkeitstrank Unsichtbarkeitstrank Jungbrunnentrank Fruchtbarkeitstrank Wiederbelebung
+			}
+			if {$store_books} {
+				lappend classes Schatzbuch
 			}
 			if {$store_rings} {
 				lappend classes Ring_Der_Erde Ring_Der_Luft Ring_Der_Magie Ring_Des_Feuers Ring_Des_Lebens Ring_Des_Wassers Ring_Des_Wissens
@@ -338,6 +349,8 @@ $replace
 $with
 			if {[lsearch {Holzkiepe_ Grosse_Holzkiepe_ Ring_Der_Erde Ring_Der_Luft Ring_Der_Magie Ring_Des_Feuers Ring_Des_Lebens Ring_Des_Wassers Ring_Des_Wissens} [get_objclass $item]] > -1} {
 				set_pos $item [vector_add [get_pos this] "[expr {[lindex $slotx [expr {$slotidx % 6}]] + [random -0.15 0.15]}] [expr {[lindex $sloty [expr {$slotidx / 6}]] - 0.4}] -0.2"]
+			} elseif {[lsearch {Schatzbuch} [get_objclass $item]] > -1} {
+				set_pos $item [vector_add [get_pos this] "[expr {[lindex $slotx [expr {$slotidx % 6}]] + [random -0.15 0.15]}] [expr {[lindex $sloty [expr {$slotidx / 6}]] + 0.6}] -0.2"]
 			} else {
 				set_pos $item [vector_add [get_pos this] "[expr {[lindex $slotx [expr {$slotidx % 6}]] + [random -0.15 0.15]}] [lindex $sloty [expr {$slotidx / 6}]] 0"]
 			}
@@ -352,6 +365,8 @@ $with
 			set item [lindex [lindex $slotlist $i] 0]
 			if {[lsearch {Holzkiepe_ Grosse_Holzkiepe_ Ring_Der_Erde Ring_Der_Luft Ring_Der_Magie Ring_Des_Feuers Ring_Des_Lebens Ring_Des_Wassers Ring_Des_Wissens} [get_objclass $item]] > -1} {
 				set pos [vector_add [get_pos this] "[expr {[lindex $slotx [expr {$i % 6}]] + [random -0.15 0.15]}] [expr {[lindex $sloty [expr {$i / 6}]] - 0.4}] -0.2"]
+			} elseif {[lsearch {Schatzbuch} [get_objclass $item]] > -1} {
+				set pos [vector_add [get_pos this] "[expr {[lindex $slotx [expr {$i % 6}]] + [random -0.15 0.15]}] [expr {[lindex $sloty [expr {$i / 6}]] + 0.6}] -0.2"]
 			} else {
 				set pos [vector_add [get_pos this] "[expr {[lindex $slotx [expr {$i % 6}]] + [random -0.15 0.15]}] [lindex $sloty [expr {$i / 6}]] 0"]
 			}
