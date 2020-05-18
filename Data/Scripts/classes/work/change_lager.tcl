@@ -298,7 +298,21 @@ $put
 $end
 
 
-
+$start
+$replace
+	method find_slot_for_storing {itemtype} {
+		return [find_slot_for_storing $itemtype]
+	}
+$with
+	method find_slot_for_storing {itemtype} {
+		if {$itemtype == "Holzkiepe"} {
+			return [find_slot_for_storing Holzkiepe_]
+		} elseif {$itemtype == "Grosse_Holzkiepe"} {
+			return [find_slot_for_storing Grosse_Holzkiepe_]
+		}
+		return [find_slot_for_storing $itemtype]
+	}
+$end
 
 
 $start
