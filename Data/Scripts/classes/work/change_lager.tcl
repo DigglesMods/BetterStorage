@@ -328,32 +328,21 @@ $with
 					set_posbottom $invitem [vector_fix [get_pos $item]]
 				}
 				
-				if {[get_objclass $item] == "Holzkiepe"} {
-					del $item
-					set item [new Holzkiepe_]
-				} elseif {[get_objclass $item] == "Grosse_Holzkiepe"} {
-					del $item
-					set item [new Grosse_Holzkiepe_]
+				if {[get_objclass $item] == "Holzkiepe" || [get_objclass $item] == "Grosse_Holzkiepe"} {
+					if {[get_objclass $item] == "Holzkiepe"} {
+						set pannier [new Holzkiepe_]
+					} else {
+						set pannier [new Grosse_Holzkiepe_]
+					}
+					call_method $pannier set_related_pannier $item
+					set_visibility $item 0
+					set_hoverable $item 0
+					set_lock $item 1
+					set item $pannier
 				}
 			}
 
 			inv_add this $item
-$end
-
-
-$start
-$after
-log "item $item [get_objname $item] retrieved from lager"
-
-$put
-			if {[get_objclass $item] == "Holzkiepe_"} {
-				set_visibility $item 0
-				del $item
-			} elseif {[get_objclass $item] == "Grosse_Holzkiepe_"} {
-				set_visibility $item 0
-				del $item
-			}
-
 $end
 
 
