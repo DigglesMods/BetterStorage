@@ -375,3 +375,79 @@ $with
 			}
 			
 $end
+
+
+$start
+$replace
+		proc find_slot_for_storing {itemtype} {
+			global max_slots
+			for {set i 0} {$i < $max_slots} {incr i} {
+				if {[get_slot_itemtype $i] == $itemtype} {
+					if {[is_slot_full $i] == 0} {
+						return $i
+					}
+				}
+				if {[get_slot_itemtype $i] == 0} {
+					return $i
+				}
+			}
+			return -1
+		}
+$with
+		proc find_slot_for_storing {itemtype} {
+			global max_slots
+			// find slot with highest count of items, which is not full
+			// if not there return the first empty slot
+			// if not there return -1
+			set typeSlot -1
+			set typeSlotCount -1
+			set emptySlot -1
+			for {set i 0} {$i < $max_slots} {incr i} {
+				if {[get_slot_itemtype $i] == $itemtype && [is_slot_full $i] == 0} {
+					set count [get_slot_itemcount $i]
+					if {$typeSlot == -1 || $count > $typeSlotCount} {
+						set typeSlot $i
+						set typeSlotCount $count
+					}
+				}
+				if {$emptySlot == -1 && [get_slot_itemtype $i] == 0} {
+					set emptySlot $i
+				}
+			}
+			if {$typeSlot > -1} {
+				return $typeSlot
+			}
+			return $emptySlot
+		}
+$end
+
+
+$start
+$replace
+		proc find_slot_for_retrieving {itemtype} {
+			global max_slots
+			for {set i 0} {$i < $max_slots} {incr i} {
+				if {[get_slot_itemtype $i] == $itemtype} {
+					return $i
+				}
+			}
+			return -1
+		}
+$with
+		proc find_slot_for_retrieving {itemtype} {
+			global max_slots
+			// find slot with lowest count of items
+			set slot -1
+			set slotCount -1
+			for {set i 0} {$i < $max_slots} {incr i} {
+				if {[get_slot_itemtype $i] == $itemtype} {
+					set count [get_slot_itemcount $i]
+					if {$slot == -1 || $count < $slotCount} {
+						set slot $i
+						set slotCount $count
+					}
+				}
+			}
+			return $slot
+		}
+$end
