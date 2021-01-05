@@ -16,6 +16,15 @@
 		"wiki" : "https://github.com/DigglesMods/BetterStorage/wiki"
 	},
 	
+	"messages" : [
+		{
+			"content" :  {
+				"en" : "This mod is changing the techtree and is not compatible with savegames with another techtree. After installing this mod, please start a new game.",
+				"de" : "Diese Mod ändert den Technologiebaum und ist nicht kompatibel mit Spielständen mit einem anderen Technologiebaum. Bitte starten Sie ein neues Spiel nach der Installation dieser Mod."
+			}
+		}
+	],
+	
 	"settings" : [
 		{
 			"id" : "ITEMS_PER_SLOT",
