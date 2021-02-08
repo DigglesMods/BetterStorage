@@ -253,7 +253,7 @@ $put
 				lappend classes Steinschleuder PfeilUndBogen Buechse Schild Schild_1 Schild_2 Metallschild Schild_3 Kristallschild Schild_unq_1 Schild_unq_2 Drachenschuppe Keule Dolch_2 Axt_1 Schwert_1 Axt_unq_1 Schwert Axt_3 Schwert_4  Axt_unq_3 Streitaxt Schwert_2 Axt_2 Axt_unq_2 Schwert_3 Lichtschwert Axt_4 Axt_unq_4 Amulett_1 Amulett_2 Amulett_3
 			}
 			if {$store_tools} {
-				lappend classes Reithamster Kettensaege Presslufthammer Hoverboard Kristallstrahl Holzkiepe Grosse_Holzkiepe
+				lappend classes Reithamster Kettensaege Presslufthammer Hoverboard Kristallstrahl Taucherglocke Holzkiepe Grosse_Holzkiepe Schubkarren
 			}
 			if {$store_potions} {
 				lappend classes Heiltrank Kleiner_Heiltrank Grosser_Heiltrank Pilzschnaps Liebestrank Unverwundbarkeitstrank Unsichtbarkeitstrank Jungbrunnentrank Fruchtbarkeitstrank Wiederbelebung
@@ -309,6 +309,8 @@ $with
 			return [find_slot_for_storing Holzkiepe_]
 		} elseif {$itemtype == "Grosse_Holzkiepe"} {
 			return [find_slot_for_storing Grosse_Holzkiepe_]
+		} elseif {$itemtype == "Schubkarren"} {
+			return [find_slot_for_storing Schubkarren_]
 		}
 		return [find_slot_for_storing $itemtype]
 	}
@@ -328,11 +330,13 @@ $with
 					set_posbottom $invitem [vector_fix [get_pos $item]]
 				}
 				
-				if {[get_objclass $item] == "Holzkiepe" || [get_objclass $item] == "Grosse_Holzkiepe"} {
+				if {[get_objclass $item] == "Holzkiepe" || [get_objclass $item] == "Grosse_Holzkiepe" || [get_objclass $item] == "Schubkarren"} {
 					if {[get_objclass $item] == "Holzkiepe"} {
 						set pannier [new Holzkiepe_]
-					} else {
+					} elseif {[get_objclass $item] == "Grosse_Holzkiepe"} {
 						set pannier [new Grosse_Holzkiepe_]
+					} else {
+						set pannier [new Schubkarren_]
 					}
 					call_method $pannier set_related_pannier $item
 					set_visibility $item 0
@@ -350,7 +354,7 @@ $start
 $replace
 			set_pos $item [vector_add [get_pos this] "[expr {[lindex $slotx [expr {$slotidx % 6}]] + [random -0.15 0.15]}] [lindex $sloty [expr {$slotidx / 6}]] 0"]
 $with
-			if {[lsearch {Holzkiepe_ Grosse_Holzkiepe_ Ring_Der_Erde Ring_Der_Luft Ring_Der_Magie Ring_Des_Feuers Ring_Des_Lebens Ring_Des_Wassers Ring_Des_Wissens} [get_objclass $item]] > -1} {
+			if {[lsearch {Holzkiepe_ Grosse_Holzkiepe_ Schubkarren_ Taucherglocke Ring_Der_Erde Ring_Der_Luft Ring_Der_Magie Ring_Des_Feuers Ring_Des_Lebens Ring_Des_Wassers Ring_Des_Wissens} [get_objclass $item]] > -1} {
 				set_pos $item [vector_add [get_pos this] "[expr {[lindex $slotx [expr {$slotidx % 6}]] + [random -0.15 0.15]}] [expr {[lindex $sloty [expr {$slotidx / 6}]] - 0.4}] -0.2"]
 			} elseif {[lsearch {Schatzbuch} [get_objclass $item]] > -1} {
 				set_pos $item [vector_add [get_pos this] "[expr {[lindex $slotx [expr {$slotidx % 6}]] + [random -0.15 0.15]}] [expr {[lindex $sloty [expr {$slotidx / 6}]] + 0.6}] -0.2"]
@@ -366,7 +370,7 @@ $replace
 			set pos [vector_add [get_pos this] "[expr {[lindex $slotx [expr {$i % 6}]] + [random -0.15 0.15]}] [lindex $sloty [expr {$i / 6}]] 0"]
 $with
 			set item [lindex [lindex $slotlist $i] 0]
-			if {[lsearch {Holzkiepe_ Grosse_Holzkiepe_ Ring_Der_Erde Ring_Der_Luft Ring_Der_Magie Ring_Des_Feuers Ring_Des_Lebens Ring_Des_Wassers Ring_Des_Wissens} [get_objclass $item]] > -1} {
+			if {[lsearch {Holzkiepe_ Grosse_Holzkiepe_ Schubkarren_ Taucherglocke Ring_Der_Erde Ring_Der_Luft Ring_Der_Magie Ring_Des_Feuers Ring_Des_Lebens Ring_Des_Wassers Ring_Des_Wissens} [get_objclass $item]] > -1} {
 				set pos [vector_add [get_pos this] "[expr {[lindex $slotx [expr {$i % 6}]] + [random -0.15 0.15]}] [expr {[lindex $sloty [expr {$i / 6}]] - 0.4}] -0.2"]
 			} elseif {[lsearch {Schatzbuch} [get_objclass $item]] > -1} {
 				set pos [vector_add [get_pos this] "[expr {[lindex $slotx [expr {$i % 6}]] + [random -0.15 0.15]}] [expr {[lindex $sloty [expr {$i / 6}]] + 0.6}] -0.2"]

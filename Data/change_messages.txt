@@ -172,3 +172,22 @@ ru "Ğşêçà÷îê"
 
 
 $end
+
+
+$start
+$before
+## "Schubkarren"
+$put
+## "Schubkarren_"
+en "Barrow"
+cz "Barrow"
+de "Schubkarre"
+fr "Brouette"
+it "Carrello"
+nl "Kruiwagen"
+es "Carretilla"
+pl "Barrow"
+ru "Barrow"
+
+
+$end
